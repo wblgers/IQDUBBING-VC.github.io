@@ -6,18 +6,18 @@
 </head>
 <body>
 
-<h2 align="center">Enriching Source Style Transfer in Recognition-Synthesis based Non-Parallel Voice Conversion</h2>
+<h2 align="center">IQDUBBING-VC: PROSODY MODELING BASED ON DISCRETE SELF-SUPERVISED SPEECH REPRESENTATION FOR EXPRESSIVE VOICE CONVERSION</h2>
 <!-- <div><b>Authors:</b> Zhichao Wang</div> -->
-<div><b>Abstract:</b>  Current voice conversion (VC) methods can successfully convert the audio's timbre, but there are still limitations to the modeling of source audio's prosodic style resulting in difficulties in the application of some scenes. This study proposes a source style transfer framework based on recognition-synthesis framework using bottleneck feature and mel spectrum as input. We manage to solve these limitations by explicit and implicit hybrid modeling, including three methods. First,  we trained our model conditioned on prosodic features to improve the model's stability and the abilities to represent and control prosody, as the explicit modeling prosody module. Second, to solve the problem of timbre leakage in prosody and extract a comprehensive prosody representation, we design an implicit modeling prosody module using an adversarial training strategy with mel spectrum and bottleneck feature as input. Third, we use the modified self-attention based encoder to excavate the sentential context and prosodic information. Experiments show that our approach is superior to the baseline. The proposed system is quite effective in improving source style transfer performance that our system has better abilities in modeling prosody representations and controlling synthesized prosody, and audio quality and speaker similarity are well maintained.
+<div><b>Abstract:</b>  Voice conversion (VC) can successfully convert timbre. However, modeling the expressive speech prosody is a challenge, such as dubbing. In this study, based on recognition-synthesis framework, a new prosody modeling method based on implicit feature is proposed. Firstly, Discrete Self-supervised Speech Representation (DSSR), specifically VQ-Wav2Vec (VQ), is used as implicit feature for prosody modeling to get prosody vector. However, it is found that the prosody vector is mixed with content information which should be sieved. And then, Random Downsample Prosody Sieve (RDPS) is adopted to sieve prosody vector. But it leads to much loss of prosody and is sensitive to random interference. Finally, we propose a Phone Level Prosody Sieve (PLPS). Experiments show that our approach is superior to baseline and comparison systems in terms of sound quality while maintaining prosody and similarity.
 </div>
 
 <hr>
 <h4>System Description</h2>
-<p><strong>CS: comparison system which may cause speaker leakage and unstability</strong> </p>
-<p><strong>BL: baseline system using lf0,vuv and energy</strong> </p>
-<p><strong>P1: adopt VAE with auxiliary speaker classifier based on BL system</strong> </p>
-<p><strong>P2: use SA-WA encoder instead of CBHG encoder based on P1.</strong> </p>
-<p><strong>P3(proposed): the final system we proposed with SA-WA encoder and prosody module</strong> </p>
+<p><strong>CS: comparison system, which is similar to [12]. It is based on BL, and Mel is used as prosody feature.</strong> </p>
+<p><strong>BL: baseline system, which refers to Tacotron2 framework, composed of encoder and autoregressive decoder. Only EV is the input of the system.</strong> </p>
+<p><strong>P1: proposed system 1, in which Mel is replaced with VQ in CS</strong> </p>
+<p><strong>P2: proposed system 2, in which RDPS is added to prosody vector in P1.</strong> </p>
+<p><strong>P3(proposed): proposed system 3, in which RDPS is added to prosody vector in P1</strong> </p>
 
 <hr>
 
