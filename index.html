@@ -33,24 +33,72 @@
 
 <h2>Contents</h2>
 <ul>
-  <li><a href="#abstract">Abstract</a></li>
-  <li><a href="#tts">Demos -- Text-to-speech</a></li>
+  <li><a href="#1">Abstract</a></li>
+  <li><a href="#2">System design</a></li>
+  <li><a href="#3">Evaluation sample</a></li>
     <ul>
-        <li><a href="#2.1">Training On ESD dataset</a></li>
+	    <li><a href="#3.1">Target speaker sample</a></li>
+        <li><a href="#3.2">Training On ESD dataset</a></li>
     </ul>
+  <li><a href="#4">Necessity and Contribution Analysis of Prosody Filter</a></li>
+<!--   <li><a href="#5">Demo for Dubbing</a></li> -->
 </ul>
 
-<h2 id="abstract">1. Abstract<a name="abstract"></a></h2>
+<h2 id="abstract">1. Abstract<a name="1"></a></h2>
 <p>Prosody modeling is important, but still challenging in expressive voice conversion. As prosody is difficult to model, and other factors, e.g., speaker, environment and content, which are entangled with prosody in speech, should be removed in prosody modeling. In this paper, we present IQDubbing to solve this problem for expressive voice conversion. To model prosody, we leverage the recent advances in discrete self-supervised speech representation (DSSR). Specifically, prosody vector is first extracted from pre-trained VQWav2Vec model, where rich prosody information is embedded while most speaker and environment information are removed effectively by quantization. To further filter out the redundant information except prosody, such as content and partial speaker information, we propose two kinds of prosody filters to sample prosody from the prosody vector. Experiments show that IQDubbing is superior to baseline and comparison systems in terms of speech quality while maintaining prosody consistency and speaker similarity.</p>
-	<center><img src='figs/system.png' ></center>
+
+<h2 id="system">2. System design<a name="2"></a></h2>
+<p>The architecture of IQDubbding is shown in Fig.1. In general the system follows an encoder-decoder framework, where three individual encoders are adopted, in charge of content extraction, prosody extraction and speaker representation respectively. 
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specifically for the content extraction, an end-to-end ASR model is first adopted to take source audio as input and its encoder output, or the bottleneck feature (BN), is fed into the content encoder, resulting in a content vector representing the linguistic information. As for the prosody modeling, a pre-trained VQ-Wav2Vec model is adopted to process source audio and output the discrete representation -- VQW2V. The VQW2V is then fed into the prosody encoder, resulting in the prosody vector. To further filter out prosody-unrelated information from the prosody vector, we specifically design a prosody filter to get the filtered prosody vector. The decoder takes content vector, filtered prosody vector and speaker vector as input to reconstruct mel spectrum. Finally, Parallel WaveGAN is used to synthesize the converted speech. </p>
+	<center><img src='figs/fig1_v4.jpg' ></center>
+	<p><b>Fig.1. </b> Overview of the components of the proposed voice conversion model. First, prosody modeling is based on DSSR. DSSR is discrete
+self-supervised speech representation. Besides, two kinds of prosody filters: random downsample prosody filter(RDPF) and aligned downsample prosody filter(ADPF), are compared. </p>
+	
+	<center><img src='figs/fig2_v1.jpg' height="600" width="800" ></center>
+	<center><p><b>Fig.2. </b> VQW2V based prosody encoder. The VQW2V indices are from pre-trained VQ-Wav2Vec model. </p></center>
+
+	<center><img src='figs/fig3_a_v1.jpg' ></center>
+	<center><p>(a) Random downsample prosody filter (RDPF). Prosody Vector is grouped by a fixed rate. </p></center>
+	<center><img src='figs/fig3_b_v1.jpg' ></center>
+	<center><p>(b) Align downsample prosody filter (PLPF). Prosody Vector is aligned by a phone alignment sequence.</p></center>
+	<p><b>Fig.3. </b> Prosody filter. Here Mandarin syllable “hua2” is chosen as an example, which includes 3 phones, “HH”, “UW2” and “AA2”.The 1st and 2nd frame belong to “HH”. The 3rd frame belongs to “AA2”. The 4th, 5th and 6th frame belong to ”AA2”. Please focus on the filtered prosody vector of each phone. </p>
 <br><br>
 
-<h2>2. Demos <a name="tts"></a></h2>
-<a name="2.1"><h3>2.1 Training On ESD dataset</h3></a>
-<table>
+<h2>3. Evaluation sample <a name="3"></a></h2>
+<a name="3.1"><h3>3.1 Target speaker sample</h3></a>
+
+ <br>
+ <center><p><b>Table.1. </b> Target speaker sample. </p></center>
+<table class="table1">
+  <thead>
+	<tr>
+	  <th style="text-align: center">Speaker</th>
+	  <th style="text-align: center"  colspan="5">Samples</th>
+	</tr>
+  </thead>
+  <tbody>
+	<tr>
+	  <td style="text-align: center"><strong>ESD08</strong></td>
+	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Neutral_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Happy_0701.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Angry_0700.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Sad_1053.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Surprise_1410.wav"></audio></td>
+	</tr>
+	</tr>
+  </tbody>
+</table>
+<br>
+<br>
+<a name="3.2"><h3>3.2 Training On ESD dataset</h3></a>
+ <br>
+<center><p><b>Table.2. </b> The results of voice conversion in test set </p></center>
+<table align="left">
   <thead>
     <tr>
-      <th style="text-align: center"></th>
+      <th style="text-align: center">Test Set</th>
+	  <th style="text-align: center">Scenarios</th>
 	  <th style="text-align: center">Input</th>
       <th style="text-align: center">BL</th>
       <th style="text-align: center">CS</th>
@@ -61,154 +109,268 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center"><strong>Sentence 1</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/F221_03_0002.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_F221_03_0002_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_F221_03_0002_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_F221_03_0002_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_F221_03_0002_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_F221_03_0002_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>1</strong></td>
+	  <th style="text-align: center">Ordinary-Female-Sad</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/F221_03_0002.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_F221_03_0002_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_F221_03_0002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_F221_03_0002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_F221_03_0002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_F221_03_0002_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 2</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/F221_06_0001.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_F221_06_0001_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_F221_06_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_F221_06_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_F221_06_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_F221_06_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>2</strong></td>
+	  <th style="text-align: center">Ordinary-Female-Hate</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/F221_06_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_F221_06_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_F221_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_F221_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_F221_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_F221_06_0001_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 3</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/F223_04_0001.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_F223_04_0001_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_F223_04_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_F223_04_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_F223_04_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_F223_04_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>3</strong></td>
+	  <th style="text-align: center">Ordinary-Female-Surprise</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/F223_04_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_F223_04_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_F223_04_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_F223_04_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_F223_04_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_F223_04_0001_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 4</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/M099_01_0001.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_M099_01_0001_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_M099_01_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_M099_01_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_M099_01_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_M099_01_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>4</strong></td>
+	  <th style="text-align: center">Ordinary-Male-Happy</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/M099_01_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_M099_01_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_M099_01_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_M099_01_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_M099_01_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_M099_01_0001_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 5</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/M099_06_0001.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_M099_06_0001_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_M099_06_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_M099_06_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_M099_06_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_M099_06_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>5</strong></td>
+	  <th style="text-align: center">Ordinary-Male-Fear</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/M099_06_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_M099_06_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_M099_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_M099_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_M099_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_M099_06_0001_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 6</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/M182_02_0001.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_M182_02_0001_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_M182_02_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_M182_02_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_M182_02_0001_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_M182_02_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>6</strong></td>
+	  <th style="text-align: center">Ordinary-Male-Angry</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/M182_02_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_M182_02_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_M182_02_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_M182_02_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_M182_02_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_M182_02_0001_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 7</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/bbm_000002.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_bbm_000002_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_bbm_000002_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_bbm_000002_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_bbm_000002_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_bbm_000002_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>7</strong></td>
+	  <th style="text-align: center">Ordinary-Male-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/bbm_000002.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_bbm_000002_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_bbm_000002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_bbm_000002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_bbm_000002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_bbm_000002_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 8</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/hm_f12.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_hm_f12_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_hm_f12_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_hm_f12_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_hm_f12_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_hm_f12_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>8</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/hm_f12.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_hm_f12_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_hm_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_hm_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_hm_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_hm_f12_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 9</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/hm_m01.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_hm_m01_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_hm_m01_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_hm_m01_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_hm_m01_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_hm_m01_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>9</strong></td>
+	  <th style="text-align: center">Dubbing-Male-Happy</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/hm_m01.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_hm_m01_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_hm_m01_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_hm_m01_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_hm_m01_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_hm_m01_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 10</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/yx_f_13.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_yx_f_13_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_yx_f_13_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_yx_f_13_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_yx_f_13_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_yx_f_13_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>10</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/yx_f_13.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_yx_f_13_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_yx_f_13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_yx_f_13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_yx_f_13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_yx_f_13_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 11</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/zjz_f02.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_f02_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_f02_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_f02_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_f02_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_f02_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>11</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Sad</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_f02.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_f02_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_f02_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_f02_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_f02_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_f02_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 12</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/zjz_f03.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_f03_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_f03_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_f03_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_f03_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_f03_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>12</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_f03.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_f03_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_f03_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_f03_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_f03_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_f03_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 13</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/zjz_f12.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_f12_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_f12_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_f12_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_f12_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_f12_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>13</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Surprise</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_f12.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_f12_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_f12_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 14</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/zjz_f13.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_f13_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_f13_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_f13_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_f13_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_f13_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>14</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Angry</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_f13.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_f13_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_f13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_f13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_f13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_f13_gen.wav"></audio></td>
     </tr>
 	
 	<tr>
-      <td style="text-align: center"><strong>Sentence 15</strong></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/input/zjz_m05.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_m05_gen.wav"></audio></td>
-      <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_m05_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_m05_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_m05_gen.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 100px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_m05_gen.wav"></audio></td>
+      <td style="text-align: center"><strong>15</strong></td>
+	  <th style="text-align: center">Dubbing-Male-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_m05.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a0/a0_M08_zjz_m05_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_a/a_M08_zjz_m05_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_c/c_M08_zjz_m05_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_d/d_M08_zjz_m05_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/model_e/e_M08_zjz_m05_gen.wav"></audio></td>
     </tr>
   </tbody>
 </table>
+<br>
+<br>
 <p><b>Short summary:</b> The score of IQDubbing is higher than BL and CS. However, the score of IQDubbing-RDPF is lower than IQDubbing as RDPF is not stable at runtime. IQDubbing-ADPF achieves the highest MOS score, which indicates that ADPF helps to improve speech quality by successfully removing content and speaker information in prosody</p>
+
+
+
+<h2>3. Necessity and Contribution Analysis of Prosody Filter <a name="4"></a></h2>
+
+
+<p>We conduct following tests to verify the necessity and contribution of prosody sieve module. The details are shown as follows:
+<br>
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;Only Content</b>: The value of VQW2V is set to 0 in the  corresponding system. 
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;Only Prosody</b>: The value of BN is set to 0 in the corresponding system.
+<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;Content+Prosody</b>: BN and VQW2V are used normally in the corresponding system.
+<br>
+<br>
+The spectrograms shown in Table.3 are from the utterances generated by IQDubbing, IQDubbing-RDPF or IQDubbing-ADPF respectively. They are used to show the content or prosody information of speech.  As is shown in Table.3, the spectrogram of <b>Only Content</b> is worse than <b>Only Prosody</b> with IQDubbing. It shows that content information is leaked from VQW2V in IQDubbing. However, the content information should be obtained from BN. It verifies the necessity of prosody filter. It is also found that <b>Only Content</b> is very close to <b>Content+Prosody</b> in IQDubbing-RDPF, which illustrates the contribution of VQW2V is limited. Furthermore, we find that both BN and VQW2V play an important role in IQDubbing-ADPF. Obviously, the effect of prosody filter module is verified in IQDubbing-ADPF, which is consistent with the evalution results in paper section 3.2 and 3.3.</p>
+<!-- <style type="text/css">
+.table2{
+    height:650px;
+    width:200px;
+    margin:100 auto;
+}
+</style>
+ -->
+
+ <br>
+ <p><b>Table.3. </b> Necessity and contribution analysis of prosody sieve.  The spectrograms areused to show the content or prosody information. </p>
+<table class="table2">
+  <thead>
+	<tr>
+	  <th style="text-align: center">Conditon</th>
+	  <th style="text-align: center">IQDubbing</th>
+	  <th style="text-align: center">IQDubbing-RDPF</th>
+	  <th style="text-align: center">IQDubbing-ADPF</th>
+	</tr>
+  </thead>
+  <tbody>
+	<tr>
+	  <td style="text-align: center" rowspan="2"><strong>Only Content</strong></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq_only_ev.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq_only_ev4.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq_only_ev4.wav"></audio></td>
+	</tr>
+	
+	<tr>
+	  <td style="text-align: center"><img src='figs/p1_1_v1.png' ></td>
+	  <td style="text-align: center"><img src='figs/p2_1_v1.png' ></td>
+	  <td style="text-align: center"><img src='figs/p3_1_v1.png' ></td>
+	</tr>
+	
+	<tr>
+	  <td style="text-align: center" rowspan="2"><strong>Only Prosody</strong></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq_only_vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq_only_vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq_only_vq.wav"></audio></td>
+	</tr>
+	
+	<tr>
+	  <td style="text-align: center"><img src='figs/p1_2_v1.png' ></td>
+	  <td style="text-align: center"><img src='figs/p2_2_v1.png' ></td>
+	  <td style="text-align: center"><img src='figs/p3_2_v1.png' ></td>
+	</tr>
+	
+	<tr>
+	  <td style="text-align: center" rowspan="2"><strong>Content + Prosody</strong></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq.wav"></audio></td>
+	</tr>
+	
+	<tr>
+	  <td style="text-align: center"><img src='figs/p1_3_v1.png' ></td>
+	  <td style="text-align: center"><img src='figs/p2_3_v1.png' ></td>
+	  <td style="text-align: center"><img src='figs/p3_3_v1.png' ></td>
+	</tr>
+  </tbody>
+</table>
+
+<!-- 
+<h2>4. Demo for Dubbing <a name="4"></a></h2>
+
+<video height="450" width="800" controls>
+  <source src="samples/video/haimian-demo-VC.mp4" type="video/mp4">
+  </object> 
+</video>
+<br>
+<br>
+<br>
+<video height="450" width="800" controls>
+  <source src="samples/video/wira2019-demo-VC.mp4" type="video/mp4">
+  </object> 
+</video>
+</html> -->
+
+
+
