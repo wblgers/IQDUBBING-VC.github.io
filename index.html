@@ -38,7 +38,8 @@
   <li><a href="#3">Evaluation sample</a></li>
     <ul>
 	    <li><a href="#3.1">Target speaker sample</a></li>
-        <li><a href="#3.2">Training On ESD dataset</a></li>
+        <li><a href="#3.2">Training on ESD dataset</a></li>
+		<li><a href="#3.2">Training on ESD dataset and internal dataset (IND)</a></li>
     </ul>
   <li><a href="#4">Necessity and Contribution Analysis of Prosody Filter</a></li>
 <!--   <li><a href="#5">Demo for Dubbing</a></li> -->
@@ -66,6 +67,9 @@ self-supervised speech representation. Besides, two kinds of prosody filters: ra
 <br><br>
 
 <h2>3. Evaluation sample <a name="3"></a></h2>
+
+<br>
+<br>
 <a name="3.1"><h3>3.1 Target speaker sample</h3></a>
 
  <br>
@@ -73,19 +77,50 @@ self-supervised speech representation. Besides, two kinds of prosody filters: ra
 <table class="table1">
   <thead>
 	<tr>
-	  <th style="text-align: center">Speaker</th>
+	  <th style="text-align: center">Target speaker</th>
 	  <th style="text-align: center"  colspan="5">Samples</th>
 	</tr>
   </thead>
   <tbody>
 	<tr>
-	  <td style="text-align: center"><strong>ESD08</strong></td>
-	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Neutral_0002.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Happy_0701.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Angry_0700.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Sad_1053.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 250px;" controls="" preload="none" src="samples/target/esd08_Surprise_1410.wav"></audio></td>
+	  <td style="text-align: center"><strong>ESD_M08</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Neutral_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Happy_0701.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Angry_0700.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Sad_1053.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Surprise_1410.wav"></audio></td>
 	</tr>
+	<tr>
+	  <td style="text-align: center"><strong>IND_F01</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_01_0250.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_01_0251.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_02_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_02_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_31_0001.wav"></audio></td>
+	</tr>
+	<tr>
+	  <td style="text-align: center"><strong>IND_F02</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_01_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_02_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_03_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_04_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_05_0002.wav"></audio></td>
+	</tr>
+	<tr>
+	  <td style="text-align: center"><strong>IND_M01</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_13_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_13_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_14_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_14_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_37_0001.wav"></audio></td>
+	</tr>
+	<tr>
+	  <td style="text-align: center"><strong>IND_M02</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_01_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_02_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_03_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_04_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_05_0001.wav"></audio></td>
 	</tr>
   </tbody>
 </table>
@@ -93,13 +128,18 @@ self-supervised speech representation. Besides, two kinds of prosody filters: ra
 <br>
 <a name="3.2"><h3>3.2 Training On ESD dataset</h3></a>
  <br>
-<center><p><b>Table.2. </b> The results of voice conversion in test set </p></center>
+ <p>As is dscribed in the paper, our experiment is based on dataset ESD dataset, which is a open source dateset. The results of voice conversion on ESD is shown in Table.2.</p>
+ <br>
+<center><p><b>Table.2. </b> The results of voice conversion on ESD </p></center>
 <table align="left">
   <thead>
+      <tr>
+	  <th style="text-align: center"  rowspan="2">Test Set</th>
+	  <th style="text-align: center"  rowspan="2">Scenarios</th>
+	  <th style="text-align: center"  rowspan="2">Input</th>
+	  <th style="text-align: center"  colspan="5">The outputs of target speaker, ESD_M08</th>
+    </tr>
     <tr>
-      <th style="text-align: center">Test Set</th>
-	  <th style="text-align: center">Scenarios</th>
-	  <th style="text-align: center">Input</th>
       <th style="text-align: center">BL</th>
       <th style="text-align: center">CS</th>
 	  <th style="text-align: center">IQDubbing</th>
@@ -276,10 +316,207 @@ self-supervised speech representation. Besides, two kinds of prosody filters: ra
 </table>
 <br>
 <br>
-<p><b>Short summary:</b> The score of IQDubbing is higher than BL and CS. However, the score of IQDubbing-RDPF is lower than IQDubbing as RDPF is not stable at runtime. IQDubbing-ADPF achieves the highest MOS score, which indicates that ADPF helps to improve speech quality by successfully removing content and speaker information in prosody</p>
+<p><b>Short summary:</b></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The performance of IQDubbing is better than BL and CS. However, the performance of IQDubbing-RDPF is worse than IQDubbing as RDPF is not stable at runtime. IQDubbing-ADPF achieves the best performance, which indicates that ADPF helps to improve speech quality by successfully removing content and speaker information in prosody.</p>
 
-
-
+<br>
+<br>
+<a name="3.3"><h3>3.3 Training on ESD dataset and internal dataset (IND)</h3></a>
+ <br>
+  AS speech qualiy of ESD dataset is limited, in order to show performance of our proposed system, an internal dataset (IND) and ESD dataset, are together used to train the voice conversion model. IND contains 51000 utterances spoken by 14 native Mandarin speakers with 5 emotional states (neutral, happy, angry, sad and surprise). </p>
+ <br>
+<center><p><b>Table.3. </b> The results of voice conversion on ESD and IND</p></center>
+<table align="left">
+  <thead>
+  	<tr>
+	  <th style="text-align: center"  rowspan="3">Test Set</th>
+	  <th style="text-align: center"  rowspan="3">Scenarios</th>
+	  <th style="text-align: center"  rowspan="3">Input</th>
+	  <th style="text-align: center"  colspan="5">IQDubbing-ADPF</th>
+    </tr>
+	<tr>
+	  <th style="text-align: center"  colspan="4">IND speaker</th>
+	  <th style="text-align: center">ESD speaker</th>
+    </tr>
+    <tr>
+      <th style="text-align: center">IND_F01</th>
+      <th style="text-align: center">IND_F02</th>
+	  <th style="text-align: center">IND_M01</th>
+      <th style="text-align: center">IND_M02</th>
+      <th style="text-align: center">ESD_M08</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>1</strong></td>
+	  <th style="text-align: center">Ordinary-Female-Sad</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/F221_03_0002.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_F221_03_0002_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_F221_03_0002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_F221_03_0002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_F221_03_0002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_F221_03_0002_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>2</strong></td>
+	  <th style="text-align: center">Ordinary-Female-Hate</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/F221_06_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_F221_06_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_F221_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_F221_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_F221_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_F221_06_0001_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>3</strong></td>
+	  <th style="text-align: center">Ordinary-Female-Surprise</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/F223_04_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_F223_04_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_F223_04_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_F223_04_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_F223_04_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_F223_04_0001_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>4</strong></td>
+	  <th style="text-align: center">Ordinary-Male-Happy</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/M099_01_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_M099_01_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_M099_01_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_M099_01_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_M099_01_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_M099_01_0001_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>5</strong></td>
+	  <th style="text-align: center">Ordinary-Male-Fear</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/M099_06_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_M099_06_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_M099_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_M099_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_M099_06_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_M099_06_0001_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>6</strong></td>
+	  <th style="text-align: center">Ordinary-Male-Angry</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/M182_02_0001.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_M182_02_0001_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_M182_02_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_M182_02_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_M182_02_0001_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_M182_02_0001_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>7</strong></td>
+	  <th style="text-align: center">Ordinary-Male-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/bbm_000002.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_bbm_000002_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_bbm_000002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_bbm_000002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_bbm_000002_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_bbm_000002_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>8</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/hm_f12.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_hm_f12_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_hm_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_hm_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_hm_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_hm_f12_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>9</strong></td>
+	  <th style="text-align: center">Dubbing-Male-Happy</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/hm_m01.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_hm_m01_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_hm_m01_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_hm_m01_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_hm_m01_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_hm_m01_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>10</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/yx_f_13.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_yx_f_13_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_yx_f_13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_yx_f_13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_yx_f_13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_yx_f_13_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>11</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Sad</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_f02.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_zjz_f02_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_zjz_f02_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_zjz_f02_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_zjz_f02_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_zjz_f02_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>12</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_f03.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_zjz_f03_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_zjz_f03_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_zjz_f03_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_zjz_f03_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_zjz_f03_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>13</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Surprise</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_f12.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_zjz_f12_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_zjz_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_zjz_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_zjz_f12_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_zjz_f12_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>14</strong></td>
+	  <th style="text-align: center">Dubbing-Female-Angry</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_f13.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_zjz_f13_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_zjz_f13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_zjz_f13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_zjz_f13_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_zjz_f13_gen.wav"></audio></td>
+    </tr>
+	
+	<tr>
+      <td style="text-align: center"><strong>15</strong></td>
+	  <th style="text-align: center">Dubbing-Male-Neutal</th>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/esd20/input/zjz_m05.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F060_zjz_m05_gen.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_F123_zjz_m05_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M078_zjz_m05_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_M016_zjz_m05_gen.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 160px;" controls="" preload="none" src="samples/internal/e_esdM08_zjz_m05_gen.wav"></audio></td>
+    </tr>
+  </tbody>
+</table>
+<p><b>Short summary:</b> </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It can be found that IQDubbing-ADPF could achieve better results for expressive voice conversion, when it is trained on IND and ESD. </p>
+<br>
+<br>
 <h2>3. Necessity and Contribution Analysis of Prosody Filter <a name="4"></a></h2>
 
 
@@ -293,18 +530,18 @@ self-supervised speech representation. Besides, two kinds of prosody filters: ra
 <b>&nbsp;&nbsp;&nbsp;&nbsp;Content+Prosody</b>: BN and VQW2V are used normally in the corresponding system.
 <br>
 <br>
-The spectrograms shown in Table.3 are from the utterances generated by IQDubbing, IQDubbing-RDPF or IQDubbing-ADPF respectively. They are used to show the content or prosody information of speech.  As is shown in Table.3, the spectrogram of <b>Only Content</b> is worse than <b>Only Prosody</b> with IQDubbing. It shows that content information is leaked from VQW2V in IQDubbing. However, the content information should be obtained from BN. It verifies the necessity of prosody filter. It is also found that <b>Only Content</b> is very close to <b>Content+Prosody</b> in IQDubbing-RDPF, which illustrates the contribution of VQW2V is limited. Furthermore, we find that both BN and VQW2V play an important role in IQDubbing-ADPF. Obviously, the effect of prosody filter module is verified in IQDubbing-ADPF, which is consistent with the evalution results in paper section 3.2 and 3.3.</p>
+The spectrograms shown in Table.4 are from the utterances generated by IQDubbing, IQDubbing-RDPF or IQDubbing-ADPF respectively. They are used to show the content or prosody information of speech.  As is shown in Table.4, the spectrogram of <b>Only Content</b> is worse than <b>Only Prosody</b> with IQDubbing. It shows that content information is leaked from VQW2V in IQDubbing. However, the content information should be obtained from BN. It verifies the necessity of prosody filter. It is also found that <b>Only Prosody</b> is difficult to find prosody in IQDubbing-RDPF, which illustrates the contribution of VQW2V is limited. Furthermore, we find that both BN and VQW2V play an important role in IQDubbing-ADPF. Obviously, the effect of prosody filter module is verified in IQDubbing-ADPF, which is consistent with the evalution results in paper section 3.2 and 3.3.</p>
 <!-- <style type="text/css">
 .table2{
     height:650px;
-    width:200px;
+    width:230px;
     margin:100 auto;
 }
 </style>
  -->
 
  <br>
- <p><b>Table.3. </b> Necessity and contribution analysis of prosody sieve.  The spectrograms areused to show the content or prosody information. </p>
+ <p><b>Table.4. </b> Necessity and contribution analysis of prosody sieve.  The spectrograms areused to show the content or prosody information. </p>
 <table class="table2">
   <thead>
 	<tr>
@@ -317,9 +554,9 @@ The spectrograms shown in Table.3 are from the utterances generated by IQDubbing
   <tbody>
 	<tr>
 	  <td style="text-align: center" rowspan="2"><strong>Only Content</strong></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq_only_ev.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq_only_ev4.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq_only_ev4.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq_only_ev.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq_only_ev4.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq_only_ev4.wav"></audio></td>
 	</tr>
 	
 	<tr>
@@ -330,9 +567,9 @@ The spectrograms shown in Table.3 are from the utterances generated by IQDubbing
 	
 	<tr>
 	  <td style="text-align: center" rowspan="2"><strong>Only Prosody</strong></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq_only_vq.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq_only_vq.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq_only_vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq_only_vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq_only_vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq_only_vq.wav"></audio></td>
 	</tr>
 	
 	<tr>
@@ -341,24 +578,25 @@ The spectrograms shown in Table.3 are from the utterances generated by IQDubbing
 	  <td style="text-align: center"><img src='figs/p3_2_v1.png' ></td>
 	</tr>
 	
-	<tr>
+<!-- 	<tr>
 	  <td style="text-align: center" rowspan="2"><strong>Content + Prosody</strong></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 200px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_c_ev+vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_d_ev+vq.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/fig5/bbf_000001_gen_e_ev+vq.wav"></audio></td>
 	</tr>
 	
 	<tr>
 	  <td style="text-align: center"><img src='figs/p1_3_v1.png' ></td>
 	  <td style="text-align: center"><img src='figs/p2_3_v1.png' ></td>
 	  <td style="text-align: center"><img src='figs/p3_3_v1.png' ></td>
-	</tr>
+	</tr> -->
   </tbody>
 </table>
 
-<!-- 
+
 <h2>4. Demo for Dubbing <a name="4"></a></h2>
 
+<p>The video demo for dubbing is shown as follow. The speechs of the two characters are respectively from VC results of target speaker IND_F1 and IND_F2, which is trained on internal dataset (IND) and ESD dataset.</p>
 <video height="450" width="800" controls>
   <source src="samples/video/haimian-demo-VC.mp4" type="video/mp4">
   </object> 
@@ -366,7 +604,7 @@ The spectrograms shown in Table.3 are from the utterances generated by IQDubbing
 <br>
 <br>
 <br>
-<video height="450" width="800" controls>
+<!-- <video height="450" width="800" controls>
   <source src="samples/video/wira2019-demo-VC.mp4" type="video/mp4">
   </object> 
 </video>
