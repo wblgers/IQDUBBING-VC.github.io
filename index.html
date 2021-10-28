@@ -37,8 +37,7 @@
   <li><a href="#2">System design</a></li>
   <li><a href="#3">Evaluation sample</a></li>
     <ul>
-	    <li><a href="#3.1">Target speaker sample</a></li>
-        <li><a href="#3.2">Training on ESD dataset</a></li>
+        <li><a href="#3.1">Training on ESD dataset</a></li>
 		<li><a href="#3.2">Training on ESD dataset and internal dataset (IND)</a></li>
     </ul>
   <li><a href="#4">Necessity and Contribution Analysis of Prosody Filter</a></li>
@@ -67,77 +66,27 @@ self-supervised speech representation. Besides, two kinds of prosody filters: ra
 <br><br>
 
 <h2>3. Evaluation sample <a name="3"></a></h2>
-
-<br>
-<br>
-<a name="3.1"><h3>3.1 Target speaker sample</h3></a>
-
- <br>
- <center><p><b>Table.1. </b> Target speaker sample. </p></center>
-<table class="table1">
-  <thead>
-	<tr>
-	  <th style="text-align: center">Target speaker</th>
-	  <th style="text-align: center"  colspan="5">Samples</th>
-	</tr>
-  </thead>
-  <tbody>
-	<tr>
-	  <td style="text-align: center"><strong>ESD_M08</strong></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Neutral_0002.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Happy_0701.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Angry_0700.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Sad_1053.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Surprise_1410.wav"></audio></td>
-	</tr>
-	<tr>
-	  <td style="text-align: center"><strong>IND_F01</strong></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_01_0250.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_01_0251.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_02_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_02_0002.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_31_0001.wav"></audio></td>
-	</tr>
-	<tr>
-	  <td style="text-align: center"><strong>IND_F02</strong></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_01_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_02_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_03_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_04_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_05_0002.wav"></audio></td>
-	</tr>
-	<tr>
-	  <td style="text-align: center"><strong>IND_M01</strong></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_13_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_13_0002.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_14_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_14_0002.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_37_0001.wav"></audio></td>
-	</tr>
-	<tr>
-	  <td style="text-align: center"><strong>IND_M02</strong></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_01_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_02_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_03_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_04_0001.wav"></audio></td>
-	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_05_0001.wav"></audio></td>
-	</tr>
-  </tbody>
-</table>
-<br>
-<br>
-<a name="3.2"><h3>3.2 Training On ESD dataset</h3></a>
- <br>
+<a name="3.1"><h3>3.1 Training On ESD dataset</h3></a>
  <p>As is dscribed in the paper, our experiment is based on dataset ESD dataset, which is a open source dateset. The results of voice conversion on ESD is shown in Table.2.</p>
  <br>
-<center><p><b>Table.2. </b> The results of voice conversion on ESD </p></center>
+<center><p><b>Table.1. </b> The results of voice conversion on ESD </p></center>
 <table align="left">
   <thead>
-      <tr>
-	  <th style="text-align: center"  rowspan="2">Test Set</th>
-	  <th style="text-align: center"  rowspan="2">Scenarios</th>
-	  <th style="text-align: center"  rowspan="2">Input</th>
-	  <th style="text-align: center"  colspan="5">The outputs of target speaker, ESD_M08</th>
+    <tr>
+	  <th style="text-align: center"  rowspan="4">Test Set</th>
+	  <th style="text-align: center"  rowspan="4">Scenarios</th>
+	  <th style="text-align: center"  rowspan="4">Input</th>
+	  <th style="text-align: center"  colspan="6">Target speaker samples, ESD_M08</th>
+    </tr>
+	<tr>
+	  <td style="text-align: center"  colspan="6"><audio style="width: 160px;" controls="" preload="none" src="samples/target/esd08_Neutral_0002.wav"></audio>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<audio style="width: 160px;" controls="" preload="none" src="samples/target/esd08_Happy_0701.wav"></audio>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<audio style="width: 160px;" controls="" preload="none" src="samples/target/esd08_Angry_0700.wav"></audio>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<audio style="width: 160px;" controls="" preload="none" src="samples/target/esd08_Sad_1053.wav"></audio>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<audio style="width: 160px;" controls="" preload="none" src="samples/target/esd08_Surprise_1410.wav"></audio></td>
+	</tr>
+	<tr>
+	  <th style="text-align: center"  colspan="6">The outputs of target speaker, ESD_M08</th>
     </tr>
     <tr>
       <th style="text-align: center">BL</th>
@@ -321,29 +270,82 @@ self-supervised speech representation. Besides, two kinds of prosody filters: ra
 
 <br>
 <br>
-<a name="3.3"><h3>3.3 Training on ESD dataset and internal dataset (IND)</h3></a>
+<a name="3.2"><h3>3.2 Training on ESD dataset and internal dataset (IND)</h3></a>
+ <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AS speech qualiy of ESD dataset is limited, in order to show performance of our proposed system, an internal dataset (IND) and ESD dataset, are together used to train the voice conversion model. IND contains 51000 utterances spoken by 14 native Mandarin speakers with 5 emotional states (neutral, happy, angry, sad and surprise). </p>
  <br>
-  AS speech qualiy of ESD dataset is limited, in order to show performance of our proposed system, an internal dataset (IND) and ESD dataset, are together used to train the voice conversion model. IND contains 51000 utterances spoken by 14 native Mandarin speakers with 5 emotional states (neutral, happy, angry, sad and surprise). </p>
  <br>
+ <center><p><b>Table.2. </b> Target speaker sample. </p></center>
+<table class="table1">
+  <thead>
+	<tr>
+	  <th style="text-align: center">Target speaker</th>
+	  <th style="text-align: center"  colspan="5">Samples</th>
+	</tr>
+  </thead>
+  <tbody>
+	<tr>
+	  <td style="text-align: center"><strong>IND_F01</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_01_0250.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_01_0251.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_02_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_02_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F060_31_0001.wav"></audio></td>
+	</tr>
+	<tr>
+	  <td style="text-align: center"><strong>IND_F02</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_01_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_02_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_03_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_04_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/F123_05_0002.wav"></audio></td>
+	</tr>
+	<tr>
+	  <td style="text-align: center"><strong>IND_M01</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_13_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_13_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_14_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_14_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M078_37_0001.wav"></audio></td>
+	</tr>
+	<tr>
+	  <td style="text-align: center"><strong>IND_M02</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_01_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_02_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_03_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_04_0001.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/M016_05_0001.wav"></audio></td>
+	</tr>
+	<tr>
+	  <td style="text-align: center"><strong>ESD_M08</strong></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Neutral_0002.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Happy_0701.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Angry_0700.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Sad_1053.wav"></audio></td>
+	  <td style="text-align: center"><audio style="width: 230px;" controls="" preload="none" src="samples/target/esd08_Surprise_1410.wav"></audio></td>
+	</tr>
+  </tbody>
+</table>
+<br>
+<br>
 <center><p><b>Table.3. </b> The results of voice conversion on ESD and IND</p></center>
 <table align="left">
   <thead>
   	<tr>
-	  <th style="text-align: center"  rowspan="3">Test Set</th>
-	  <th style="text-align: center"  rowspan="3">Scenarios</th>
-	  <th style="text-align: center"  rowspan="3">Input</th>
+	  <th style="text-align: center"  rowspan="6">Test Set</th>
+	  <th style="text-align: center"  rowspan="6">Scenarios</th>
+	  <th style="text-align: center"  rowspan="6">Input</th>
 	  <th style="text-align: center"  colspan="5">IQDubbing-ADPF</th>
     </tr>
 	<tr>
 	  <th style="text-align: center"  colspan="4">IND speaker</th>
 	  <th style="text-align: center">ESD speaker</th>
     </tr>
-    <tr>
-      <th style="text-align: center">IND_F01</th>
-      <th style="text-align: center">IND_F02</th>
-	  <th style="text-align: center">IND_M01</th>
-      <th style="text-align: center">IND_M02</th>
-      <th style="text-align: center">ESD_M08</th>
+	<tr>
+      <th style="text-align: center">IND_F01</audio></th>
+      <th style="text-align: center">IND_F02</audio></th>
+	  <th style="text-align: center">IND_M01</audio></th>
+      <th style="text-align: center">IND_M02</audio></th>
+      <th style="text-align: center">ESD_M08</audio></th>
     </tr>
   </thead>
   <tbody>
